@@ -1,98 +1,155 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
-
-import { HelloWave } from '@/components/hello-wave';
-import ParallaxScrollView from '@/components/parallax-scroll-view';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { Link } from 'expo-router';
+import React from "react";
+import { StyleSheet, View, Text, ScrollView } from "react-native";
 
 export default function HomeScreen() {
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12',
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <Link href="/modal">
-          <Link.Trigger>
-            <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-          </Link.Trigger>
-          <Link.Preview />
-          <Link.Menu>
-            <Link.MenuAction title="Action" icon="cube" onPress={() => alert('Action pressed')} />
-            <Link.MenuAction
-              title="Share"
-              icon="square.and.arrow.up"
-              onPress={() => alert('Share pressed')}
-            />
-            <Link.Menu title="More" icon="ellipsis">
-              <Link.MenuAction
-                title="Delete"
-                icon="trash"
-                destructive
-                onPress={() => alert('Delete pressed')}
-              />
-            </Link.Menu>
-          </Link.Menu>
-        </Link>
+    <ScrollView contentContainerStyle={styles.container}>
+      {/* Welcome Card */}
+      <View style={styles.welcomeCard}>
+        <Text style={styles.title}>Welcome to the App </Text>
+        <Text style={styles.subtitle}>
+          React Native Mini Project Assignment
+        </Text>
+      </View>
 
-        <ThemedText>
-          {`Tap the Explore tab to learn more about what's included in this starter app.`}
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          {`When you're ready, run `}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+      {/* Student Details */}
+      <View style={styles.card}>
+        <Text style={styles.heading}>Student Details</Text>
+
+        <Text style={styles.info}> Name: Manan Patel</Text>
+        <Text style={styles.info}> Enrollment: SUK250054CE070</Text>
+        <Text style={styles.info}> College: Swaminarayan University</Text>
+      </View>
+
+      {/* Survey Count */}
+      <View style={styles.surveyCard}>
+        <Text style={styles.heading}>Today's Survey Count</Text>
+
+        <Text style={styles.count}>0</Text>
+        <Text style={styles.info}>Survey Completed Today</Text>
+      </View>
+
+      {/* Quick Actions */}
+      <Text style={styles.sectionTitle}>Quick Actions</Text>
+
+      <View style={styles.actionContainer}>
+        <View style={styles.actionCard}>
+      
+          <Text>Create Survey</Text>
+        </View>
+
+        <View style={styles.actionCard}>
+     
+          <Text>Camera</Text>
+        </View>
+
+        <View style={styles.actionCard}>
+      
+          <Text>Location</Text>
+        </View>
+
+        <View style={styles.actionCard}>
+  
+          <Text>Clipboard</Text>
+        </View>
+
+        <View style={styles.actionCard}>
+     
+          <Text>Contacts</Text>
+        </View>
+      </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
+  container: {
+    padding: 20,
+    paddingTop: 50,
+    backgroundColor: "#F4F6F8",
+    flexGrow: 1,
   },
-  stepContainer: {
-    gap: 8,
+
+  welcomeCard: {
+    backgroundColor: "#2E7D32",
+    padding: 20,
+    borderRadius: 15,
+    marginBottom: 20,
+    elevation: 5,
+  },
+
+  title: {
+    fontSize: 24,
+    color: "#fff",
+    fontWeight: "bold",
+  },
+
+  subtitle: {
+    color: "#fff",
+    marginTop: 8,
+    fontSize: 16,
+  },
+
+  card: {
+    backgroundColor: "#fff",
+    borderRadius: 15,
+    padding: 20,
+    marginBottom: 20,
+    elevation: 5,
+  },
+
+  surveyCard: {
+    backgroundColor: "#DFF6DD",
+    borderRadius: 15,
+    padding: 20,
+    marginBottom: 20,
+    alignItems: "center",
+    elevation: 5,
+  },
+
+  heading: {
+    fontSize: 20,
+    fontWeight: "bold",
+    marginBottom: 12,
+  },
+
+  info: {
+    fontSize: 16,
     marginBottom: 8,
+    color: "#444",
   },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
+
+  count: {
+    fontSize: 42,
+    fontWeight: "bold",
+    color: "#2E7D32",
+    marginVertical: 10,
+  },
+
+  sectionTitle: {
+    fontSize: 22,
+    fontWeight: "bold",
+    marginBottom: 15,
+  },
+
+  actionContainer: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-between",
+  },
+
+  actionCard: {
+    width: "48%",
+    backgroundColor: "#fff",
+    borderRadius: 15,
+    paddingVertical: 20,
+    alignItems: "center",
+    marginBottom: 15,
+    elevation: 4,
+  },
+
+  actionText: {
+    fontSize: 30,
+    marginBottom: 10,
   },
 });
