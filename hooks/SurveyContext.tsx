@@ -59,7 +59,7 @@ export function SurveyProvider({ children }: { children: ReactNode }) {
         id: Date.now().toString(),
         createdAt: Date.now(),
       };
-      
+
       const updatedSurveys = [newSurvey, ...surveys];
       setSurveys(updatedSurveys);
       await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(updatedSurveys));

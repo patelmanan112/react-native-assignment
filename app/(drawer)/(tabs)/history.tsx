@@ -1,12 +1,10 @@
 import React, { useState, useMemo } from "react";
 import { View, Text, StyleSheet, FlatList, Alert, TouchableOpacity } from "react-native";
-import { ScreenContainer } from "@/components/ui/ScreenContainer";
 import { CustomInput } from "@/components/ui/CustomInput";
-import { CustomButton } from "@/components/ui/CustomButton";
 import { Card } from "@/components/ui/Card";
 import { Colors, Layout } from "@/constants/theme";
 import { useColorScheme } from "@/hooks/use-color-scheme";
-import { useSurvey, Survey } from "@/hooks/SurveyContext";
+import { useSurvey } from "@/hooks/SurveyContext";
 import { IconSymbol } from "@/components/ui/icon-symbol";
 
 export default function HistoryScreen() {
@@ -17,13 +15,16 @@ export default function HistoryScreen() {
   const [filterPriority, setFilterPriority] = useState<string | null>(null);
 
   const filteredSurveys = useMemo(() => {
-    return surveys.filter(s => {
-      const matchesSearch = 
-        s.siteName.toLowerCase().includes(searchQuery.toLowerCase()) || 
-        s.clientName.toLowerCase().includes(searchQuery.toLowerCase());
-      const matchesPriority = filterPriority ? s.priority === filterPriority : true;
-      return matchesSearch && matchesPriority;
-    });
+    return [...surveys]
+      .sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0))
+      .filter(s => {
+        const matchesSearch =
+          s.siteName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          s.clientName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          (s.description || '').toLowerCase().includes(searchQuery.toLowerCase());
+        const matchesPriority = filterPriority ? s.priority === filterPriority : true;
+        return matchesSearch && matchesPriority;
+      });
   }, [surveys, searchQuery, filterPriority]);
 
   const handleDelete = (id: string) => {
@@ -121,6 +122,18 @@ export default function HistoryScreen() {
               </Text>
             </View>
 
+            {item.description ? (
+              <Text style={[styles.metaText, { color: Colors[colorScheme].textSecondary }]} numberOfLines={2}>
+                {item.description}
+              </Text>
+            ) : null}
+
+            {item.notes ? (
+              <Text style={[styles.metaText, { color: Colors[colorScheme].textSecondary }]} numberOfLines={2}>
+                Notes: {item.notes}
+              </Text>
+            ) : null}
+
             <View style={styles.actionRow}>
               <TouchableOpacity onPress={() => handleDelete(item.id)} style={styles.deleteBtn}>
                 <IconSymbol name="trash" size={20} color={Colors[colorScheme].error} />
@@ -163,6 +176,7 @@ const styles = StyleSheet.create({
   divider: { height: 1, backgroundColor: '#E5E7EB', marginVertical: Layout.spacing.md },
   detailsRow: { flexDirection: 'row', alignItems: 'center', marginBottom: Layout.spacing.sm },
   dateText: { fontSize: 14, marginLeft: Layout.spacing.xs },
+  metaText: { fontSize: 13, marginBottom: Layout.spacing.xs },
   actionRow: { flexDirection: 'row', justifyContent: 'flex-end', marginTop: Layout.spacing.xs },
   deleteBtn: { flexDirection: 'row', alignItems: 'center', padding: Layout.spacing.xs },
   deleteText: { marginLeft: 4, fontWeight: '600', fontSize: 14 }

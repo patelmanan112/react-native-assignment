@@ -33,11 +33,7 @@ export default function PreviewScreen() {
         notes: draftSurvey.notes,
       });
 
-      Alert.alert(
-        "Success", 
-        "Survey submitted successfully!",
-        [{ text: "OK", onPress: () => router.replace("/(drawer)/(tabs)") }]
-      );
+      router.replace('/(drawer)/(tabs)/history' as any);
     } catch (e) {
       Alert.alert("Error", "Failed to save survey.");
     }

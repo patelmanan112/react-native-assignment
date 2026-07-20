@@ -63,8 +63,10 @@ export default function CameraScreen() {
         });
 
         if (!result.canceled && result.assets && result.assets.length > 0) {
-            setImage(result.assets[0].uri);
+            const pickedUri = result.assets[0].uri;
+            setImage(pickedUri);
             setCaptureTime(new Date().toLocaleString());
+            updateDraft({ photoUri: pickedUri });
         }
     };
 
@@ -73,12 +75,15 @@ export default function CameraScreen() {
             Alert.alert("Error", "Please select an image first.");
             return;
         }
+
         updateDraft({ photoUri: image });
-        Alert.alert(
-            "Success",
-            "Photo attached to survey draft",
-            [{ text: "OK", onPress: () => router.push("/(drawer)/location") }]
-        );
+
+        try {
+            router.push('/(drawer)/location' as any);
+        } catch (error) {
+            console.warn('Failed to navigate to location screen', error);
+            Alert.alert('Success', 'Photo attached to survey draft');
+        }
     };
 
     const deletePhoto = () => {

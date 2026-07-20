@@ -79,11 +79,21 @@ export default function ContactsScreen() {
         phoneNumbers: [{ number: phone }]
       }
     });
-    Alert.alert(
-      "Success", 
-      "Contact attached to survey draft",
-      [{ text: "OK", onPress: () => router.push("/(drawer)/clipboard") }]
-    );
+    try {
+      router.push('/(drawer)/clipboard' as any);
+    } catch (error) {
+      console.warn('Failed to navigate to clipboard screen', error);
+      Alert.alert('Success', 'Contact attached to survey draft');
+    }
+  };
+
+  const skipContact = () => {
+    try {
+      router.push('/(drawer)/clipboard' as any);
+    } catch (error) {
+      console.warn('Failed to navigate to clipboard screen', error);
+      Alert.alert('Success', 'Skipped contact selection');
+    }
   };
 
   function onRefresh() {
@@ -106,6 +116,12 @@ export default function ContactsScreen() {
           Contacts Permission Required
         </Text>
         <CustomButton title="Allow Contacts" onPress={fetchContacts} />
+        <CustomButton
+          title="Skip Contact"
+          onPress={skipContact}
+          variant="outline"
+          style={{ marginTop: Layout.spacing.md }}
+        />
       </View>
     );
   }
@@ -125,6 +141,12 @@ export default function ContactsScreen() {
           value={search}
           onChangeText={searchContact}
           style={styles.searchInput}
+        />
+        <CustomButton
+          title="Skip Contact"
+          onPress={skipContact}
+          variant="outline"
+          style={{ marginTop: Layout.spacing.sm, marginBottom: Layout.spacing.sm }}
         />
       </View>
 

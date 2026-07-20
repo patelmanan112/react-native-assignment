@@ -34,22 +34,43 @@ export default function LocationScreen() {
         accuracy: Location.Accuracy.High,
       });
 
-      const address = await Location.reverseGeocodeAsync({
-        latitude: currentLocation.coords.latitude,
-        longitude: currentLocation.coords.longitude,
-      });
+      let address: Array<{
+        city?: string;
+        district?: string;
+        region?: string;
+        street?: string;
+        postalCode?: string;
+        country?: string;
+        subregion?: string;
+      }> = [];
 
+      try {
+        address = await Location.reverseGeocodeAsync({
+          latitude: currentLocation.coords.latitude,
+          longitude: currentLocation.coords.longitude,
+        });
+      } catch (reverseError) {
+        console.warn('Reverse geocode failed', reverseError);
+      }
+
+      const firstAddress = address[0];
       const locData = {
         latitude: currentLocation.coords.latitude,
         longitude: currentLocation.coords.longitude,
         accuracy: currentLocation.coords.accuracy,
-        ...(address.length > 0 ? address[0] : {}),
+        street: firstAddress?.street || 'N/A',
+        district: firstAddress?.district || firstAddress?.subregion || 'N/A',
+        city: firstAddress?.city || firstAddress?.subregion || firstAddress?.region || 'N/A',
+        region: firstAddress?.region || firstAddress?.subregion || 'N/A',
+        postalCode: firstAddress?.postalCode || 'N/A',
+        country: firstAddress?.country || 'N/A',
       };
 
       setLocation(locData);
-
+      updateDraft({ location: locData });
     } catch (error) {
-      Alert.alert("Error", "Unable to fetch location.");
+      console.warn('Unable to fetch location', error);
+      Alert.alert('Error', 'Unable to fetch location.');
     } finally {
       setLoading(false);
     }
@@ -63,13 +84,19 @@ export default function LocationScreen() {
   };
 
   const useLocationForSurvey = () => {
-    if (!location) return;
+    if (!location) {
+      Alert.alert('Error', 'Please fetch the location first.');
+      return;
+    }
+
     updateDraft({ location });
-    Alert.alert(
-      "Success", 
-      "Location attached to survey draft",
-      [{ text: "OK", onPress: () => router.push("/(drawer)/contacts") }]
-    );
+
+    try {
+      router.push('/(drawer)/contacts' as any);
+    } catch (error) {
+      console.warn('Failed to navigate to contacts screen', error);
+      Alert.alert('Success', 'Location attached to survey draft');
+    }
   };
 
   return (

@@ -57,12 +57,17 @@ export default function ClipboardScreen() {
   };
 
   const saveNotes = () => {
-    updateDraft({ notes });
-    Alert.alert(
-      "Success", 
-      "Notes attached to survey draft",
-      [{ text: "Preview Survey", onPress: () => router.push("/(drawer)/(tabs)/preview") }]
-    );
+    try {
+      updateDraft({ notes });
+      router.replace('/preview' as any);
+    } catch (error) {
+      try {
+        router.replace('/(drawer)/(tabs)/preview' as any);
+      } catch (fallbackError) {
+        console.warn('Failed to navigate to preview screen', fallbackError);
+        Alert.alert('Error', 'Unable to open preview right now.');
+      }
+    }
   };
 
   return (
