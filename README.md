@@ -1,50 +1,262 @@
-# Welcome to your Expo app 👋
+# 📱 Smart Field Survey & Inspection App
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A modern **React Native** application built with **Expo** that helps field employees perform surveys and inspections efficiently. The application integrates multiple native device features such as **Camera, Contacts, Location, and Clipboard**, providing a complete field survey experience with an intuitive and responsive user interface.
 
-## Get started
+---
 
-1. Install dependencies
+## 🚀 Features
 
-   ```bash
-   npm install
-   ```
+### 🏠 Dashboard
 
-2. Start the app
+* Welcome Screen
+* Student Information
+* Today's Survey Counter
+* Quick Action Cards
+* Recent Survey Summary
+* Custom App Header
 
-   ```bash
-   npx expo start
-   ```
+### 📝 Create Survey
 
-In the output, you'll find options to open the app in a
+* Create a new survey
+* Site Name
+* Client Name
+* Survey Description
+* Priority Selection
+* Date Picker
+* Required Field Validation
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+### 📷 Camera
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+* Camera Permission Handling
+* Capture Survey Photos
+* Image Preview
+* Display Capture Time
+* Retake Photo
+* Delete Photo
+* Confirmation Alert
+* Loading Indicator
 
-## Get a fresh project
+### 📍 Location
 
-When you're ready, run:
+* Request Location Permission
+* Fetch Current GPS Coordinates
+* Display Latitude & Longitude
+* Display Accuracy
+* Refresh Location
+* Copy Location to Clipboard
+* Success Alert
 
-```bash
-npm run reset-project
+### 👥 Contacts
+
+* Request Contacts Permission
+* Fetch Device Contacts
+* Search Contacts
+* Contact Counter
+* Pull-to-Refresh
+* Contact Avatar using Initial
+* Copy Contact Number
+* Show "No Number" if unavailable
+* Empty State Screen
+
+### 📋 Clipboard
+
+* Copy Survey ID
+* Copy Contact Number
+* Copy Current Location
+* Paste Notes
+* Clear Clipboard Data
+
+### 👀 Survey Preview
+
+* Preview Complete Survey
+* Display:
+
+  * Site Details
+  * Client Details
+  * Captured Image
+  * Selected Contact
+  * GPS Location
+  * Notes
+* Edit Survey
+* Submit Survey
+
+### 📚 Survey History
+
+* FlatList Performance
+* View Survey Details
+* Search Surveys
+* Filter by Priority
+* Delete Survey
+* Confirmation Alert
+
+---
+
+# 📸 Screenshots
+
+> Add your screenshots inside a `screenshots/` folder.
+
+| Dashboard                      | Survey                      | Camera                      |
+| ------------------------------ | --------------------------- | --------------------------- |
+| ![](screenshots/dashboard.png) | ![](screenshots/survey.png) | ![](screenshots/camera.png) |
+
+| Contacts                      | Location                      | History                      |
+| ----------------------------- | ----------------------------- | ---------------------------- |
+| ![](screenshots/contacts.png) | ![](screenshots/location.png) | ![](screenshots/history.png) |
+
+---
+
+# 🛠 Tech Stack
+
+### Frontend
+
+* React Native
+* Expo
+* JavaScript
+
+### Navigation
+
+* Expo Router
+* React Navigation
+* Bottom Tabs
+* Drawer Navigation
+
+### Expo APIs
+
+* Expo Camera
+* Expo Location
+* Expo Contacts
+* Expo Clipboard
+
+### React Native Components
+
+* View
+* Text
+* Image
+* Pressable
+* FlatList
+* ScrollView
+* TextInput
+* Alert
+* ActivityIndicator
+* RefreshControl
+
+### React Hooks
+
+* useState
+* useEffect
+
+---
+
+# 📂 Project Structure
+
+```text
+Smart-Field-Survey-App/
+│
+├── app/
+├── components/
+├── assets/
+├── hooks/
+├── utils/
+├── constants/
+├── screenshots/
+├── package.json
+└── README.md
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+---
 
-## Learn more
+# ⚙️ Installation
 
-To learn more about developing your project with Expo, look at the following resources:
+Clone the repository
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+```bash
+git clone https://github.com/yourusername/smart-field-survey-app.git
+```
 
-## Join the community
+Navigate to the project
 
-Join our community of developers creating universal apps.
+```bash
+cd smart-field-survey-app
+```
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+Install dependencies
+
+```bash
+npm install
+```
+
+Start Expo
+
+```bash
+npx expo start
+```
+
+---
+
+# 📦 Required Packages
+
+```bash
+expo-camera
+expo-location
+expo-contacts
+expo-clipboard
+expo-router
+@react-navigation/native
+react-native-safe-area-context
+react-native-screens
+```
+
+---
+
+# 🎯 Learning Outcomes
+
+This project helped me understand:
+
+* React Native Fundamentals
+* Expo APIs
+* Native Device Permissions
+* Navigation (Tabs + Drawer)
+* State Management with Hooks
+* Form Validation
+* Clipboard Operations
+* Camera Integration
+* GPS Location Services
+* Contact Management
+* Responsive Mobile UI Design
+* FlatList Optimization
+
+---
+
+# 📈 Future Improvements
+
+* Firebase Authentication
+* Cloud Image Upload
+* Offline Survey Storage
+* Dark Mode
+* Push Notifications
+* PDF Report Generation
+* Maps Integration
+* Survey Analytics Dashboard
+
+---
+
+# 👨‍💻 Author
+
+**Manan Patel**
+
+* GitHub: https://github.com/patelmanan112
+* LinkedIn: https://www.linkedin.com/in/manan-patel-557535390/
+
+---
+
+# ⭐ Support
+
+If you found this project useful, consider giving it a ⭐ on GitHub.
+
+It helps others discover the project and motivates me to build more React Native applications.
+
+---
+
+## 📜 License
+
+This project is created for educational purposes and is free to use and modify.
